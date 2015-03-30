@@ -8,9 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
+	//To store the port number of the client.
 	public static Map<String, Integer> getport = new HashMap<String, Integer>();
+	//To check wheather the clients are free.
 	public static Map<String, Boolean> isfree = new HashMap<String, Boolean>();
+	//To store the Inetaddress of the client.
 	public static Map<String, InetAddress> getinet = new HashMap<String, InetAddress>();
+	//TO store the names of the Clients.
 	public static ArrayList<String> names = new ArrayList<String>();
 	ServerSocket serverSocket = null;
 	public DatagramSocket socket = null;
@@ -23,7 +27,7 @@ public class Server {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
+	//this loops accepts any number of Clients and create new serverThread for each Client.
 		while (true) {
 			try {
 				System.out.println("Waiting for client on port ");
