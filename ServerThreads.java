@@ -10,9 +10,9 @@ class ServerThreads extends Thread {
 
 	Socket client = null;
 	Server newserver;
-	static boolean nameisok = true;
-	static boolean nameisfree=true;
-	static boolean logoff = true;
+	boolean nameisok = true;
+	boolean nameisfree=true;
+	boolean logoff ;
 	boolean quits = false;
 	DataInputStream in = null;
 	DataOutputStream out = null;
@@ -21,9 +21,9 @@ class ServerThreads extends Thread {
 	InetAddress address = null;
 	DatagramPacket packet = null;
 	DatagramSocket dsocket = null;
-	static String to;
-	static String from;
-	static String message;
+	String to;
+	String from;
+	String message;
 
 	public ServerThreads(Socket socket, Server server) {
 		newserver = server;
@@ -49,8 +49,9 @@ class ServerThreads extends Thread {
 		} while (!quits);
 	}
 
+
 	//To register the name of the Client.
-	public void Start() {
+public void Start() {
 		try {
 			in = new DataInputStream(client.getInputStream());
 			out = new DataOutputStream(client.getOutputStream());
@@ -63,6 +64,7 @@ class ServerThreads extends Thread {
 					System.out.println("the user "+name+" has been added");
 				} else {
 					out.writeUTF("The name is already taken. Soryy!!!");
+					nameisok=true;
 				}
 			} while (nameisok);
 
@@ -76,7 +78,7 @@ class ServerThreads extends Thread {
 	}
 
 	//To delete the name of hte Client from the ChatServer.
-	public void DeleteName() {
+		public void DeleteName() {
 		try {
 			in = new DataInputStream(client.getInputStream());
 			out = new DataOutputStream(client.getOutputStream());
@@ -91,6 +93,7 @@ class ServerThreads extends Thread {
 			e.printStackTrace();
 		}
 	}
+
 
 	//To check the Client is available or not.
 	public void Verify() {
@@ -125,6 +128,7 @@ class ServerThreads extends Thread {
 
 	//To send and recieve message from the Client
 	public boolean RecieveMessage() {
+		boolean log=true;
 		try {
 			in = new DataInputStream(client.getInputStream());
 			out = new DataOutputStream(client.getOutputStream());
@@ -133,20 +137,22 @@ class ServerThreads extends Thread {
 			to = namepass[0];
 			from = namepass[1];
 			message = namepass[2];
+			newserver.isfree.put(from, false);
+			newserver.isfree.put(to, false);
 			String data = from + ":" + message;
 			if (message.equals("quit")) {
 				removefromchat(from);
 				removefromchat(to);
 				out.writeUTF("you have been logged off");
-				System.out.println("the user "+to+" has been removed from the caht room");
-				System.out.println("the user "+from+" has been removed from the caht room");
+				System.out.println("the user "+to+" has been removed from the chat room");
+				System.out.println("the user "+from+" has been removed from the chat room");
 				data = from + ":quit";
 				byte[] outbuf = data.getBytes();
 				int len = outbuf.length;
 				DatagramPacket request = new DatagramPacket(outbuf, len,
 						newserver.getinet.get(to), newserver.getport.get(to));
 				newserver.socket.send(request);
-				logoff = false;
+				log = false;
 			} else {
 				System.out.println(output);
 				out.writeUTF("Message sent from " + from + " to " + to);
@@ -155,12 +161,12 @@ class ServerThreads extends Thread {
 				DatagramPacket request = new DatagramPacket(outbuf, len,
 						newserver.getinet.get(to), newserver.getport.get(to));
 				newserver.socket.send(request);
-				logoff = true;
+				log = true;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return logoff;
+		return log;
 	}
 
 	//to check wheather the Client wants to chat or wait.
