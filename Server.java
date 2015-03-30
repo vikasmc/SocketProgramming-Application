@@ -31,8 +31,7 @@ public class Server {
 				Socket d = server.serverSocket.accept();
 				System.out.println("Just connected to "
 						+ d.getRemoteSocketAddress());
-				System.out
-						.println("the port numbe of Client is " + d.getPort());
+				System.out.println("the port numbe of Client is " + d.getPort());
 				ServerThreads serverthread = new ServerThreads(d,server);
 				serverthread.start();
 			} catch (IOException e) {
