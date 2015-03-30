@@ -116,10 +116,6 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 			String output = r.SendMessage(to, name, txt);
 			if (output.equals("Message sent from " + name + " to " + to)) {
 				ta.append("\n" + txt);
-			} else if (output.equals("the user " + to + " is not online")) {
-				ta.append("\n" + txt);
-				send.setEnabled(false);
-				setuser.setEnabled(true);
 			} else {
 				ta.append("\n" + output);
 				send.setEnabled(false);
@@ -177,10 +173,9 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 					to = namepass[0];
 					String mess = namepass[1];
 					if (mess.equals("quit")) {
-						wait.setEnabled(true);
+						wait.setEnabled(false);
 						send.setEnabled(false);
-						j = false;
-						ta.append("the "+to+"has been logged off");
+						ta.append("\nthe "+to+" has been logged off");
 					}
 					else{
 					ta.append("\n" + output);
@@ -190,7 +185,7 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 		}
 	}
 
-	//Main method.
+	//MAin method
 	public static void main(String s[]) {
 		HelloUi mcc = new HelloUi("Client");
 		mcc.setVisible(true);
