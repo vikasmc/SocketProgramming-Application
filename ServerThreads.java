@@ -49,6 +49,7 @@ class ServerThreads extends Thread {
 		} while (!quits);
 	}
 
+	//To register the name of the Client.
 	public void Start() {
 		try {
 			in = new DataInputStream(client.getInputStream());
@@ -74,6 +75,7 @@ class ServerThreads extends Thread {
 		}
 	}
 
+	//To delete the name of hte Client from the ChatServer.
 	public void DeleteName() {
 		try {
 			in = new DataInputStream(client.getInputStream());
@@ -90,6 +92,7 @@ class ServerThreads extends Thread {
 		}
 	}
 
+	//To check the Client is available or not.
 	public void Verify() {
 		try {
 			in = new DataInputStream(client.getInputStream());
@@ -108,7 +111,8 @@ class ServerThreads extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
+	//operation of adding the name to the arrylist.
 	public boolean Add(String n) {
 		if (!newserver.names.contains(n)) {
 			newserver.names.add(n);
@@ -119,6 +123,7 @@ class ServerThreads extends Thread {
 		}
 	}
 
+	//To send and recieve message from the Client
 	public boolean RecieveMessage() {
 		try {
 			in = new DataInputStream(client.getInputStream());
@@ -158,6 +163,7 @@ class ServerThreads extends Thread {
 		return logoff;
 	}
 
+	//to check wheather the Client wants to chat or wait.
 	public String WaitOrChat() {
 		String data = null;
 		try {
@@ -175,6 +181,7 @@ class ServerThreads extends Thread {
 		return data;
 	}
 
+	// operation to check wheather the Client is free or not.
 	public String IsFree(String name) {
 		if (newserver.isfree.containsKey(name)) {
 			if (newserver.isfree.get(name)) {
@@ -187,6 +194,8 @@ class ServerThreads extends Thread {
 			return "the user name does not exist";
 		}
 	}
+	
+	//to remove the Client from one chat and let him talk to another Client.
 	public void removefromchat(String name){
 		if(!newserver.isfree.get(name)){
 		newserver.isfree.put(name, true);
