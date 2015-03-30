@@ -19,7 +19,7 @@ import java.awt.event.WindowEvent;
 
 public class HelloUi extends Frame implements ActionListener, KeyListener {
 	/**
-	 * @Vias M C
+	 * @Vikas M C
 	 */
 	private static final long serialVersionUID = 1L;
 	Label meslabel;
@@ -70,6 +70,7 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 		r = new Client();
 	}
 
+	//Actions to be performed when the button is pressed. 
 	public void actionPerformed(ActionEvent ae) {
 		Button btn = (Button) ae.getSource();
 		if (btn == login) {
@@ -160,6 +161,7 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 
 	}
 
+	//To recieve message this thread is used.
 	class MessageReader extends Thread {
 		String msg;
 
@@ -188,6 +190,7 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 		}
 	}
 
+	//Main method.
 	public static void main(String s[]) {
 		HelloUi mcc = new HelloUi("Client");
 		mcc.setVisible(true);
@@ -198,6 +201,7 @@ public class HelloUi extends Frame implements ActionListener, KeyListener {
 
 }
 
+//to get name from the user to register
 class loginDialog extends Dialog implements ActionListener {
 	Label loginname;
 	TextField logintext;
@@ -232,6 +236,7 @@ class loginDialog extends Dialog implements ActionListener {
 	}
 }
 
+//to get the name of the user that client want to talk to
 class GetDialog extends Dialog implements ActionListener {
 	Label loginname;
 	TextField logintext;
@@ -266,6 +271,7 @@ class GetDialog extends Dialog implements ActionListener {
 	}
 }
 
+//to get the value from the CLient wheather he wants to chat ot wait.
 class WaitsDialog extends Dialog implements ActionListener {
 	Label loginname;
 	TextField logintext;
