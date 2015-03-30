@@ -12,6 +12,7 @@ public class Client {
 	DatagramSocket socket = null;
 	InetAddress inetaddress = null;
 
+	//To coonect to the Server
 	public String connect() {
 		try {
 			System.out.println("Connecting to " + serverName + " on port "
@@ -25,6 +26,7 @@ public class Client {
 		return "Connected to " + Client.getRemoteSocketAddress();
 	}
 
+	//To register the name of the client
 	public String SendName(String name) {
 		String output = null;
 		try {
@@ -38,6 +40,7 @@ public class Client {
 		return output;
 	}
 
+	// To delete the Client from the chat Server.
 	public void SendNameToDelete(String name) {
 		try {
 			in = new DataInputStream(Client.getInputStream());
@@ -48,6 +51,7 @@ public class Client {
 		}
 	}
 
+	//To get The list of the users who are online.
 	public String ListUsers() {
 		String output = null;
 		try {
@@ -59,6 +63,7 @@ public class Client {
 		return output;
 	}
 
+	//To check wheather the Client is available or not.
 	public String GetToName(String name) {
 		String output = null;
 		try {
@@ -72,6 +77,7 @@ public class Client {
 		return output;
 	}
 
+	//To send message to the Client.
 	public String SendMessage(String to, String from, String message) {
 		String messagetosend = to + ":" + from + ":" + message;
 		String output = null;
@@ -86,6 +92,7 @@ public class Client {
 		return output;
 	}
 
+	//To know wheather the Client want to wait for other to talk or he wants to talk to other.
 	public String WaitOrChat(String name) {
 
 		String output = null;
@@ -118,7 +125,8 @@ public class Client {
 		return output;
 
 	}
-
+	
+	//To get the message.
 	public String GetMessage() {
 		String output = null;
 		byte[] inbuf = new byte[256];
